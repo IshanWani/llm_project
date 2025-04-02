@@ -1,0 +1,350 @@
+[plugin:vite:react-swc] × the name `Button` is defined multiple times
+     ╭─[/home/runner/workspace/src/components/tasks/TaskCard.tsx:3:1]
+   1 │ 
+   2 │ import React, { useState } from "react";
+   3 │ import { Button } from "@/components/ui/button";
+     ·          ───┬──
+     ·             ╰── previous definition of `Button` here
+   4 │ import { Edit } from "lucide-react";
+   5 │ import { cn } from "@/lib/utils";
+   6 │ import { useTaskContext } from "@/context/TaskContext";
+   7 │ import { getTagCardColor, getPriorityColor } from "@/lib/utils";
+   8 │ 
+   9 │ interface TaskCardProps {
+  10 │   task: Task;
+  11 │   onToggleCompletion: (id: string) => void;
+  12 │   onDelete?: (id: string) => void;
+  13 │ }
+  14 │ 
+  15 │ const TaskCard = ({ task, onToggleCompletion }: TaskCardProps) => {
+  16 │   const { updateTask } = useTaskContext();
+  17 │   const [isEditingTask, setIsEditingTask] = useState(false);
+  18 │   const tagCardColor = getTagCardColor(task.tag);
+  19 │   const priorityColor = getPriorityColor(task.priority);
+  20 │ 
+  21 │   return (
+  22 │     <div className={cn(
+  23 │       "rounded-lg border shadow-sm hover:shadow-md transition-shadow duration-300",
+  24 │       tagCardColor,
+  25 │       task.Status && "opacity-70"
+  26 │     )}>
+  27 │       <div className="p-4 space-y-3">
+  28 │         <div className="flex items-start justify-between">
+  29 │           <div className="flex items-start gap-3 w-full">
+  30 │             <div>
+  31 │               <input
+  32 │                 type="checkbox"
+  33 │                 checked={task.Status}
+  34 │                 onChange={() => onToggleCompletion(task.id)}
+  35 │                 className="h-5 w-5 rounded border-gray-300"
+  36 │               />
+  37 │             </div>
+  38 │             <div className="space-y-2 w-full">
+  39 │               <div className="flex justify-between items-start">
+  40 │                 <h3 className={cn(
+  41 │                   "font-medium line-clamp-2",
+  42 │                   task.completed && "line-through text-muted-foreground"
+  43 │                 )}>
+  44 │                   {task.title}
+  45 │                 </h3>
+  46 │                 <Button
+  47 │                   variant="ghost"
+  48 │                   size="sm"
+  49 │                   className="h-7 w-7 p-0"
+  50 │                   onClick={() => setIsEditingTask(true)}
+  51 │                 >
+  52 │                   <Edit className="h-4 w-4" />
+  53 │                 </Button>
+  54 │               </div>
+  55 │ 
+  56 │               {task.description && (
+  57 │                 <p className="text-sm text-muted-foreground line-clamp-2">
+  58 │                   {task.description}
+  59 │                 </p>
+  60 │               )}
+  61 │ 
+  62 │               {task.review && (
+  63 │                 <p className="text-sm text-muted-foreground">
+  64 │                   <span className="font-medium">Review:</span> {task.review}
+  65 │                 </p>
+  66 │               )}
+  67 │ 
+  68 │               <div className="grid grid-cols-2 gap-2 text-sm">
+  69 │                 <div className={cn("font-medium", priorityColor)}>
+  70 │                   Priority: {task.priority}
+  71 │                 </div>
+  72 │                 <div>Tag: {task.tag}</div>
+  73 │                 {task.timeRequired && (
+  74 │                   <div>Time Required: {task.timeRequired}hrs</div>
+  75 │                 )}
+  76 │               </div>
+  77 │ 
+  78 │               {task.scheduleFrom && task.scheduleTo && (
+  79 │                 <div className="text-sm">
+  80 │                   Schedule: {task.scheduleFrom} - {task.scheduleTo}
+  81 │                 </div>
+  82 │               )}
+  83 │ 
+  84 │               {task.scheduledDate && (
+  85 │                 <div className="text-sm">
+  86 │                   Date: {task.scheduledDate}
+  87 │                 </div>
+  88 │               )}
+  89 │ 
+  90 │               {task.links && (
+  91 │                 <div className="text-sm">
+  92 │                   <span className="font-medium">Resources:</span>
+  93 │                   <a href={task.links} className="text-blue-500 ml-1 hover:underline" target="_blank" rel="noopener noreferrer">
+  94 │                     {task.links}
+  95 │                   </a>
+  96 │                 </div>
+  97 │               )}
+  98 │             </div>
+  99 │           </div>
+ 100 │         </div>
+ 101 │       </div>
+ 102 │     </div>
+ 103 │   );
+ 104 │ };
+ 105 │ 
+ 106 │ export default TaskCard;
+ 107 │ import { Button } from "@/components/ui/button";
+     ·          ───┬──
+     ·             ╰── `Button` redefined here
+ 108 │ import { Trash2 } from "lucide-react";
+ 109 │ import { useTaskContext } from "@/context/TaskContext";
+     ╰────
+  × the name `useTaskContext` is defined multiple times
+     ╭─[/home/runner/workspace/src/components/tasks/TaskCard.tsx:6:1]
+   3 │ import { Button } from "@/components/ui/button";
+   4 │ import { Edit } from "lucide-react";
+   5 │ import { cn } from "@/lib/utils";
+   6 │ import { useTaskContext } from "@/context/TaskContext";
+     ·          ───────┬──────
+     ·                 ╰── previous definition of `useTaskContext` here
+   7 │ import { getTagCardColor, getPriorityColor } from "@/lib/utils";
+   8 │ 
+   9 │ interface TaskCardProps {
+  10 │   task: Task;
+  11 │   onToggleCompletion: (id: string) => void;
+  12 │   onDelete?: (id: string) => void;
+  13 │ }
+  14 │ 
+  15 │ const TaskCard = ({ task, onToggleCompletion }: TaskCardProps) => {
+  16 │   const { updateTask } = useTaskContext();
+  17 │   const [isEditingTask, setIsEditingTask] = useState(false);
+  18 │   const tagCardColor = getTagCardColor(task.tag);
+  19 │   const priorityColor = getPriorityColor(task.priority);
+  20 │ 
+  21 │   return (
+  22 │     <div className={cn(
+  23 │       "rounded-lg border shadow-sm hover:shadow-md transition-shadow duration-300",
+  24 │       tagCardColor,
+  25 │       task.Status && "opacity-70"
+  26 │     )}>
+  27 │       <div className="p-4 space-y-3">
+  28 │         <div className="flex items-start justify-between">
+  29 │           <div className="flex items-start gap-3 w-full">
+  30 │             <div>
+  31 │               <input
+  32 │                 type="checkbox"
+  33 │                 checked={task.Status}
+  34 │                 onChange={() => onToggleCompletion(task.id)}
+  35 │                 className="h-5 w-5 rounded border-gray-300"
+  36 │               />
+  37 │             </div>
+  38 │             <div className="space-y-2 w-full">
+  39 │               <div className="flex justify-between items-start">
+  40 │                 <h3 className={cn(
+  41 │                   "font-medium line-clamp-2",
+  42 │                   task.completed && "line-through text-muted-foreground"
+  43 │                 )}>
+  44 │                   {task.title}
+  45 │                 </h3>
+  46 │                 <Button
+  47 │                   variant="ghost"
+  48 │                   size="sm"
+  49 │                   className="h-7 w-7 p-0"
+  50 │                   onClick={() => setIsEditingTask(true)}
+  51 │                 >
+  52 │                   <Edit className="h-4 w-4" />
+  53 │                 </Button>
+  54 │               </div>
+  55 │ 
+  56 │               {task.description && (
+  57 │                 <p className="text-sm text-muted-foreground line-clamp-2">
+  58 │                   {task.description}
+  59 │                 </p>
+  60 │               )}
+  61 │ 
+  62 │               {task.review && (
+  63 │                 <p className="text-sm text-muted-foreground">
+  64 │                   <span className="font-medium">Review:</span> {task.review}
+  65 │                 </p>
+  66 │               )}
+  67 │ 
+  68 │               <div className="grid grid-cols-2 gap-2 text-sm">
+  69 │                 <div className={cn("font-medium", priorityColor)}>
+  70 │                   Priority: {task.priority}
+  71 │                 </div>
+  72 │                 <div>Tag: {task.tag}</div>
+  73 │                 {task.timeRequired && (
+  74 │                   <div>Time Required: {task.timeRequired}hrs</div>
+  75 │                 )}
+  76 │               </div>
+  77 │ 
+  78 │               {task.scheduleFrom && task.scheduleTo && (
+  79 │                 <div className="text-sm">
+  80 │                   Schedule: {task.scheduleFrom} - {task.scheduleTo}
+  81 │                 </div>
+  82 │               )}
+  83 │ 
+  84 │               {task.scheduledDate && (
+  85 │                 <div className="text-sm">
+  86 │                   Date: {task.scheduledDate}
+  87 │                 </div>
+  88 │               )}
+  89 │ 
+  90 │               {task.links && (
+  91 │                 <div className="text-sm">
+  92 │                   <span className="font-medium">Resources:</span>
+  93 │                   <a href={task.links} className="text-blue-500 ml-1 hover:underline" target="_blank" rel="noopener noreferrer">
+  94 │                     {task.links}
+  95 │                   </a>
+  96 │                 </div>
+  97 │               )}
+  98 │             </div>
+  99 │           </div>
+ 100 │         </div>
+ 101 │       </div>
+ 102 │     </div>
+ 103 │   );
+ 104 │ };
+ 105 │ 
+ 106 │ export default TaskCard;
+ 107 │ import { Button } from "@/components/ui/button";
+ 108 │ import { Trash2 } from "lucide-react";
+ 109 │ import { useTaskContext } from "@/context/TaskContext";
+     ·          ───────┬──────
+     ·                 ╰── `useTaskContext` redefined here
+ 110 │ 
+ 111 │ export function TaskCard({ task, onToggleCompletion }: TaskCardProps) {
+ 112 │   const { deleteTask } = useTaskContext();
+     ╰────
+  × the name `TaskCard` is defined multiple times
+     ╭─[/home/runner/workspace/src/components/tasks/TaskCard.tsx:15:1]
+  12 │   onDelete?: (id: string) => void;
+  13 │ }
+  14 │ 
+  15 │ const TaskCard = ({ task, onToggleCompletion }: TaskCardProps) => {
+     ·       ────┬───
+     ·           ╰── previous definition of `TaskCard` here
+  16 │   const { updateTask } = useTaskContext();
+  17 │   const [isEditingTask, setIsEditingTask] = useState(false);
+  18 │   const tagCardColor = getTagCardColor(task.tag);
+  19 │   const priorityColor = getPriorityColor(task.priority);
+  20 │ 
+  21 │   return (
+  22 │     <div className={cn(
+  23 │       "rounded-lg border shadow-sm hover:shadow-md transition-shadow duration-300",
+  24 │       tagCardColor,
+  25 │       task.Status && "opacity-70"
+  26 │     )}>
+  27 │       <div className="p-4 space-y-3">
+  28 │         <div className="flex items-start justify-between">
+  29 │           <div className="flex items-start gap-3 w-full">
+  30 │             <div>
+  31 │               <input
+  32 │                 type="checkbox"
+  33 │                 checked={task.Status}
+  34 │                 onChange={() => onToggleCompletion(task.id)}
+  35 │                 className="h-5 w-5 rounded border-gray-300"
+  36 │               />
+  37 │             </div>
+  38 │             <div className="space-y-2 w-full">
+  39 │               <div className="flex justify-between items-start">
+  40 │                 <h3 className={cn(
+  41 │                   "font-medium line-clamp-2",
+  42 │                   task.completed && "line-through text-muted-foreground"
+  43 │                 )}>
+  44 │                   {task.title}
+  45 │                 </h3>
+  46 │                 <Button
+  47 │                   variant="ghost"
+  48 │                   size="sm"
+  49 │                   className="h-7 w-7 p-0"
+  50 │                   onClick={() => setIsEditingTask(true)}
+  51 │                 >
+  52 │                   <Edit className="h-4 w-4" />
+  53 │                 </Button>
+  54 │               </div>
+  55 │ 
+  56 │               {task.description && (
+  57 │                 <p className="text-sm text-muted-foreground line-clamp-2">
+  58 │                   {task.description}
+  59 │                 </p>
+  60 │               )}
+  61 │ 
+  62 │               {task.review && (
+  63 │                 <p className="text-sm text-muted-foreground">
+  64 │                   <span className="font-medium">Review:</span> {task.review}
+  65 │                 </p>
+  66 │               )}
+  67 │ 
+  68 │               <div className="grid grid-cols-2 gap-2 text-sm">
+  69 │                 <div className={cn("font-medium", priorityColor)}>
+  70 │                   Priority: {task.priority}
+  71 │                 </div>
+  72 │                 <div>Tag: {task.tag}</div>
+  73 │                 {task.timeRequired && (
+  74 │                   <div>Time Required: {task.timeRequired}hrs</div>
+  75 │                 )}
+  76 │               </div>
+  77 │ 
+  78 │               {task.scheduleFrom && task.scheduleTo && (
+  79 │                 <div className="text-sm">
+  80 │                   Schedule: {task.scheduleFrom} - {task.scheduleTo}
+  81 │                 </div>
+  82 │               )}
+  83 │ 
+  84 │               {task.scheduledDate && (
+  85 │                 <div className="text-sm">
+  86 │                   Date: {task.scheduledDate}
+  87 │                 </div>
+  88 │               )}
+  89 │ 
+  90 │               {task.links && (
+  91 │                 <div className="text-sm">
+  92 │                   <span className="font-medium">Resources:</span>
+  93 │                   <a href={task.links} className="text-blue-500 ml-1 hover:underline" target="_blank" rel="noopener noreferrer">
+  94 │                     {task.links}
+  95 │                   </a>
+  96 │                 </div>
+  97 │               )}
+  98 │             </div>
+  99 │           </div>
+ 100 │         </div>
+ 101 │       </div>
+ 102 │     </div>
+ 103 │   );
+ 104 │ };
+ 105 │ 
+ 106 │ export default TaskCard;
+ 107 │ import { Button } from "@/components/ui/button";
+ 108 │ import { Trash2 } from "lucide-react";
+ 109 │ import { useTaskContext } from "@/context/TaskContext";
+ 110 │ 
+ 111 │ export function TaskCard({ task, onToggleCompletion }: TaskCardProps) {
+     ·                 ────┬───
+     ·                     ╰── `TaskCard` redefined here
+ 112 │   const { deleteTask } = useTaskContext();
+ 113 │ 
+ 114 │   const handleDelete = async (e: React.MouseEvent) => {
+     ╰────
+/home/runner/workspace/src/components/tasks/TaskCard.tsx:3:1
+13 |  }
+14 |  
+15 |  const TaskCard = ({ task, onToggleCompletion }: TaskCardProps) => {
+   |                 ^
+16 |    const { updateTask } = useTaskContext();
+17 |    const [isEditingTask, setIsEditingTask] = useState(false);

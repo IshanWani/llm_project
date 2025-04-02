@@ -1,0 +1,129 @@
+[plugin:vite:react-swc] × the name `completionMatch` is defined multiple times
+     ╭─[/home/runner/workspace/src/context/TaskContext.tsx:405:1]
+ 402 │     console.log("All tasks before filtering:", tasks);
+ 403 │     
+ 404 │     return tasks.filter((task) => {
+ 405 │       const completionMatch = task.completed === completed;
+     ·             ───────┬───────
+     ·                    ╰── previous definition of `completionMatch` here
+ 406 │       const priorityMatch = priorityFilter === "all" || task.priority === priorityFilter;
+ 407 │       const tagMatch = tagFilter === "all" || task.tag === tagFilter;
+ 408 │       const basicMatch = completionMatch && priorityMatch && tagMatch;
+ 409 │       
+ 410 │       console.log("Task filtering debug:", {
+ 411 │         taskId: task.id,
+ 412 │         taskTitle: task.title,
+ 413 │         taskCompleted: task.completed,
+ 414 │         completionMatch,
+ 415 │         priorityMatch,
+ 416 │         tagMatch,
+ 417 │         basicMatch
+ 418 │       });
+ 419 │       // Filter by completion status
+ 420 │       const completionMatch = task.completed === completed;
+     ·             ───────┬───────
+     ·                    ╰── `completionMatch` redefined here
+ 421 │       
+ 422 │       // Filter by priority
+ 423 │       const priorityMatch = priorityFilter === "all" || task.priority === priorityFilter;
+     ╰────
+  × the name `priorityMatch` is defined multiple times
+     ╭─[/home/runner/workspace/src/context/TaskContext.tsx:406:1]
+ 403 │     
+ 404 │     return tasks.filter((task) => {
+ 405 │       const completionMatch = task.completed === completed;
+ 406 │       const priorityMatch = priorityFilter === "all" || task.priority === priorityFilter;
+     ·             ──────┬──────
+     ·                   ╰── previous definition of `priorityMatch` here
+ 407 │       const tagMatch = tagFilter === "all" || task.tag === tagFilter;
+ 408 │       const basicMatch = completionMatch && priorityMatch && tagMatch;
+ 409 │       
+ 410 │       console.log("Task filtering debug:", {
+ 411 │         taskId: task.id,
+ 412 │         taskTitle: task.title,
+ 413 │         taskCompleted: task.completed,
+ 414 │         completionMatch,
+ 415 │         priorityMatch,
+ 416 │         tagMatch,
+ 417 │         basicMatch
+ 418 │       });
+ 419 │       // Filter by completion status
+ 420 │       const completionMatch = task.completed === completed;
+ 421 │       
+ 422 │       // Filter by priority
+ 423 │       const priorityMatch = priorityFilter === "all" || task.priority === priorityFilter;
+     ·             ──────┬──────
+     ·                   ╰── `priorityMatch` redefined here
+ 424 │       
+ 425 │       // Filter by tag
+ 426 │       const tagMatch = tagFilter === "all" || task.tag === tagFilter;
+     ╰────
+  × the name `tagMatch` is defined multiple times
+     ╭─[/home/runner/workspace/src/context/TaskContext.tsx:407:1]
+ 404 │     return tasks.filter((task) => {
+ 405 │       const completionMatch = task.completed === completed;
+ 406 │       const priorityMatch = priorityFilter === "all" || task.priority === priorityFilter;
+ 407 │       const tagMatch = tagFilter === "all" || task.tag === tagFilter;
+     ·             ────┬───
+     ·                 ╰── previous definition of `tagMatch` here
+ 408 │       const basicMatch = completionMatch && priorityMatch && tagMatch;
+ 409 │       
+ 410 │       console.log("Task filtering debug:", {
+ 411 │         taskId: task.id,
+ 412 │         taskTitle: task.title,
+ 413 │         taskCompleted: task.completed,
+ 414 │         completionMatch,
+ 415 │         priorityMatch,
+ 416 │         tagMatch,
+ 417 │         basicMatch
+ 418 │       });
+ 419 │       // Filter by completion status
+ 420 │       const completionMatch = task.completed === completed;
+ 421 │       
+ 422 │       // Filter by priority
+ 423 │       const priorityMatch = priorityFilter === "all" || task.priority === priorityFilter;
+ 424 │       
+ 425 │       // Filter by tag
+ 426 │       const tagMatch = tagFilter === "all" || task.tag === tagFilter;
+     ·             ────┬───
+     ·                 ╰── `tagMatch` redefined here
+ 427 │       
+ 428 │       // Basic match without date filter
+ 429 │       const basicMatch = completionMatch && priorityMatch && tagMatch;
+     ╰────
+  × the name `basicMatch` is defined multiple times
+     ╭─[/home/runner/workspace/src/context/TaskContext.tsx:408:1]
+ 405 │       const completionMatch = task.completed === completed;
+ 406 │       const priorityMatch = priorityFilter === "all" || task.priority === priorityFilter;
+ 407 │       const tagMatch = tagFilter === "all" || task.tag === tagFilter;
+ 408 │       const basicMatch = completionMatch && priorityMatch && tagMatch;
+     ·             ─────┬────
+     ·                  ╰── previous definition of `basicMatch` here
+ 409 │       
+ 410 │       console.log("Task filtering debug:", {
+ 411 │         taskId: task.id,
+ 412 │         taskTitle: task.title,
+ 413 │         taskCompleted: task.completed,
+ 414 │         completionMatch,
+ 415 │         priorityMatch,
+ 416 │         tagMatch,
+ 417 │         basicMatch
+ 418 │       });
+ 419 │       // Filter by completion status
+ 420 │       const completionMatch = task.completed === completed;
+ 421 │       
+ 422 │       // Filter by priority
+ 423 │       const priorityMatch = priorityFilter === "all" || task.priority === priorityFilter;
+ 424 │       
+ 425 │       // Filter by tag
+ 426 │       const tagMatch = tagFilter === "all" || task.tag === tagFilter;
+ 427 │       
+ 428 │       // Basic match without date filter
+ 429 │       const basicMatch = completionMatch && priorityMatch && tagMatch;
+     ·             ─────┬────
+     ·                  ╰── `basicMatch` redefined here
+ 430 │       
+ 431 │       // If no date filter, return basic match
+ 432 │       if (dateFilter === "all") {
+     ╰────
+/home/runner/workspace/src/context/TaskContext.tsx:405:1

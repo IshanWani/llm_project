@@ -1,0 +1,31 @@
+Warning: A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
+    at input
+    at _c (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/src/components/ui/input.tsx:12:54)
+    at div
+    at form
+    at div
+    at div
+    at div
+    at https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/node_modules/.vite/deps/chunk-3FCHTX6S.js?v=abf9d79f:41:13
+    at https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/node_modules/.vite/deps/@radix-ui_react-scroll-area.js?v=abf9d79f:112:13
+    at div
+    at https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/node_modules/.vite/deps/chunk-3FCHTX6S.js?v=abf9d79f:41:13
+    at Provider (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/node_modules/.vite/deps/chunk-WDV3BTJG.js?v=abf9d79f:48:15)
+    at https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/node_modules/.vite/deps/@radix-ui_react-scroll-area.js?v=abf9d79f:50:7
+    at _c (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/src/components/ui/scroll-area.tsx:13:59)
+    at TaskFormMini (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/src/components/rightPane/TaskFormMini.tsx:24:40)
+    at div
+    at div
+    at div
+    at RightPane (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/src/components/rightPane/RightPane.tsx:19:33)
+    at div
+    at div
+    at Index (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/src/pages/Index.tsx:21:39)
+    at PrivateRoute (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/src/App.tsx:20:25)
+    at RenderedRoute (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=abf9d79f:4069:5)
+    at Routes (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=abf9d79f:4508:5)
+    at Router (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=abf9d79f:4451:15)
+    at BrowserRouter (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=abf9d79f:5196:5)
+    at TaskProvider (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/src/context/TaskContext.tsx:18:32)
+    at ThemeProvider (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/src/context/ThemeContext.tsx:13:33)
+    at App (https://9f0cedca-d958-4cb1-b1f2-2f7f9e8ca163-00-bzqd89nqruuq.pike.replit.dev/src/App.tsx:77:49)
