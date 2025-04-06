@@ -27,9 +27,24 @@ const TaskCard = ({ task, onToggleCompletion }: TaskCardProps) => {
     }
   };
 
-  const handleEdit = () => {
-    // Dispatch custom event for right pane to handle
-    const event = new CustomEvent('edit-task', { detail: task });
+  const handleEdit = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const event = new CustomEvent('edit-task', { 
+      detail: {
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        priority: task.priority,
+        tag: task.tag,
+        links: task.links,
+        scheduledDate: task.scheduled_date,
+        timeRequired: task.time_required,
+        scheduleFrom: task.scheduleFrom,
+        scheduleTo: task.scheduleTo,
+        review: task.review
+      } 
+    });
     window.dispatchEvent(event);
   };
 
