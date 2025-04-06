@@ -309,6 +309,8 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
         updateData.email_notification = taskData.emailNotification;
       if (taskData.notificationTime !== undefined)
         updateData.notification_time = taskData.notificationTime;
+      if (taskData.review !== undefined) 
+        updateData.review = taskData.review;
 
       const { error } = await supabase
         .from("tasks")
