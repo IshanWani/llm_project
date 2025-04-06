@@ -49,16 +49,6 @@ const TabNavigation = ({
     { id: "analytics", label: "Analytics" },
   ];
 
-  const dateFilterOptions = [
-    { value: "all", label: "All Time" },
-    { value: "next_day", label: "Next Day" },
-    { value: "next_week", label: "Next Week" },
-    { value: "next_month", label: "Next Month" },
-    { value: "next_six_months", label: "Next 6 Months" },
-    { value: "past_week", label: "Past Week" },
-    { value: "past_month", label: "Past Month" },
-    { value: "all_past", label: "All Past" },
-  ];
 
   const priorityOptions: Array<{ value: PriorityType | "all"; label: string }> = [
     { value: "all", label: "All Priorities" },
@@ -74,10 +64,6 @@ const TabNavigation = ({
     value: tag,
     label: tag === "all" ? "All Tags" : tag.charAt(0).toUpperCase() + tag.slice(1)
   }));
-
-  const handleDateFilterChange = (value: string) => {
-    setFilters(prev => ({ ...prev, dateFilter: value }));
-  };
 
   const handlePriorityFilterChange = (value: string) => {
     setFilters(prev => ({ ...prev, priorityFilter: value as PriorityType | "all" }));
@@ -122,25 +108,7 @@ const TabNavigation = ({
             <DropdownMenuLabel>Filter Tasks</DropdownMenuLabel>
             <DropdownMenuSeparator />
 
-            <DropdownMenuGroup>
-              <DropdownMenuLabel className="text-xs font-normal text-muted-foreground pt-2">
-                By Date
-              </DropdownMenuLabel>
-              <Select value={filters.dateFilter} onValueChange={handleDateFilterChange}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Filter by date" />
-                </SelectTrigger>
-                <SelectContent>
-                  {dateFilterOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </DropdownMenuGroup>
-
-            <DropdownMenuSeparator />
+            {/* TODO:  Implement Summary Generation Button */}
 
             <DropdownMenuGroup>
               <DropdownMenuLabel className="text-xs font-normal text-muted-foreground pt-2">

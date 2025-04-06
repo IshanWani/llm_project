@@ -135,22 +135,6 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
           </div>
         </div>
         
-        {/* Time Allocation Trend */}
-        <div className="glass-card rounded-xl p-4">
-          <h3 className="text-lg font-medium mb-4">Time Allocation Trend</h3>
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={timeAllocationData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="day" />
-                <YAxis label={{ value: 'Hours', angle: -90, position: 'insideLeft' }} />
-                <Tooltip />
-                <Bar dataKey="hours" fill="#007AFF" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-        
         {/* Priority Distribution */}
         <div className="glass-card rounded-xl p-4">
           <h3 className="text-lg font-medium mb-4">Priority Distribution</h3>
@@ -173,24 +157,6 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
                   })}
                 </Bar>
               </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-        
-        {/* Task Completion Trend */}
-        <div className="glass-card rounded-xl p-4 lg:col-span-2">
-          <h3 className="text-lg font-medium mb-4">Task Completion Trend</h3>
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={trendData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="week" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="tasks" stroke="#007AFF" name="Total Tasks" />
-                <Line type="monotone" dataKey="completed" stroke="#34C759" name="Completed Tasks" />
-              </LineChart>
             </ResponsiveContainer>
           </div>
         </div>

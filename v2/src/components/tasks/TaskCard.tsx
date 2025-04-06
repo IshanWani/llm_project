@@ -27,6 +27,12 @@ const TaskCard = ({ task, onToggleCompletion }: TaskCardProps) => {
     }
   };
 
+  const handleEdit = () => {
+    // Dispatch custom event for right pane to handle
+    const event = new CustomEvent('edit-task', { detail: task });
+    window.dispatchEvent(event);
+  };
+
   return (
     <div className={cn(
       "rounded-lg border shadow-sm hover:shadow-md transition-shadow duration-300",
@@ -55,7 +61,7 @@ const TaskCard = ({ task, onToggleCompletion }: TaskCardProps) => {
                     variant="ghost"
                     size="sm"
                     className="h-7 w-7 p-0"
-                    onClick={() => setIsEditingTask(true)}
+                    onClick={handleEdit}
                   >
                     <Edit className="h-4 w-4" />
                   </Button>

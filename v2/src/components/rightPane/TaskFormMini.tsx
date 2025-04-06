@@ -75,7 +75,7 @@ const TaskFormMini = () => {
   };
 
   return (
-    <ScrollArea className="h-[500px] w-[300px] rounded-md border p-2">
+    <ScrollArea className="h-full w-[300px] rounded-md border p-2">
       <div className="px-2">
         <div className="flex items-center justify-between mb-2 border-b pb-2">
           <div className="flex items-center gap-1">

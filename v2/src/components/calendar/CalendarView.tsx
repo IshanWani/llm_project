@@ -57,12 +57,15 @@ export const CalendarView = () => {
                   />
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium truncate">{task.title}</h4>
-                    {(task.description || task.review) && (
-                      <div className="text-[10px] text-muted-foreground">
-                        {task.description && <p className="truncate">{task.description}</p>}
-                        {task.review && <p className="truncate">Review: {task.review}</p>}
-                      </div>
-                    )}
+                    <div className="text-[10px] text-muted-foreground space-y-1">
+                      {task.description && <p className="truncate">{task.description}</p>}
+                      {task.review && <p className="truncate">Review: {task.review}</p>}
+                      {task.timeRequired > 0 && <p>Time Required: {task.timeRequired}h</p>}
+                      {task.scheduleFrom && <p>From: {new Date(task.scheduleFrom).toLocaleTimeString()}</p>}
+                      {task.scheduleTo && <p>To: {new Date(task.scheduleTo).toLocaleTimeString()}</p>}
+                      <p className="font-medium">Priority: {task.priority}</p>
+                      {task.tag && <p>Tag: {task.tag}</p>}
+                    </div>
                     {(task.scheduleFrom || task.scheduleTo) && (
                       <div className="text-[11px] text-muted-foreground font-medium mt-1">
                         {task.scheduleFrom && new Date(task.scheduleFrom).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
