@@ -24,6 +24,10 @@ export function MultiSelect({ options = [], value = [], onChange, placeholder }:
   const [open, setOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
 
+  const filteredOptions = options.filter(option => 
+    option.label.toLowerCase().includes(inputValue.toLowerCase())
+  );
+
   const selectedLabels = (value || []).map(
     v => options.find(opt => opt.value === v)?.label || v
   );
@@ -62,7 +66,7 @@ export function MultiSelect({ options = [], value = [], onChange, placeholder }:
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-full p-0">
-          <Command className="w-full" shouldFilter={false}>
+          <Command className="w-full">
             <CommandInput 
               placeholder="Search..." 
               value={inputValue} 
@@ -71,7 +75,7 @@ export function MultiSelect({ options = [], value = [], onChange, placeholder }:
             <CommandEmpty>No option found.</CommandEmpty>
             <ScrollArea className="h-[200px]">
               <CommandGroup>
-                {options.map(option => (
+                {filteredOptions.map(option => (
                   <CommandItem
                     key={option.value}
                     onSelect={() => {
