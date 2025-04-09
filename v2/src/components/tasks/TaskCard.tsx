@@ -50,11 +50,11 @@ const TaskCard = ({ task, onToggleCompletion }: TaskCardProps) => {
 
   return (
     <div className={cn(
-      "rounded-lg border shadow-sm hover:shadow-md transition-shadow duration-300",
+      "rounded-lg border shadow-sm hover:shadow-md transition-shadow duration-300 w-full",
       tagCardColor,
       task.Status && "opacity-70"
     )}>
-      <div className="p-4 space-y-3">
+      <div className="p-4 space-y-3 flex flex-col">
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-3 w-full">
             <input
@@ -137,7 +137,7 @@ const TaskCard = ({ task, onToggleCompletion }: TaskCardProps) => {
               {task.links && (
                 <div className="text-sm mt-1">
                   <span className="font-medium">Resources:</span>
-                  <a href={task.links} className="text-blue-500 ml-1 hover:underline" target="_blank" rel="noopener noreferrer">
+                  <a href={task.links} className="text-blue-500 ml-1 hover:underline break-all line-clamp-1" target="_blank" rel="noopener noreferrer">
                     {task.links}
                   </a>
                 </div>
