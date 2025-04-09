@@ -89,10 +89,32 @@ const TaskList = ({
       return;
     }
     
-    const taskDescriptions = tagTasks.map(task => task.description);
-    const { data, error } = await supabase.functions.invoke('summarize-tasks', {
-      body: JSON.stringify({ taskDescriptions })
+    const taskDetails = tagTasks.map(task => ({
+      title: task.title,
+      description: task.description || '',
+      review: task.review || '',
+      priority: task.priority,
+      tag: task.tag,
+      completed: task.completed
+    }));
+
+    const { data, error } = await supabase.functions.invoke('gemini-task-assistant', {
+      body: {
+        messages: [{
+          role: 'user',
+          content: `Please analyze and summarize these tasks: ${JSON.stringify(taskDetails)}`
+        }],
+        systemPrompt: "You are a task analyzer. Generate a concise summary of the tasks, including their completion status, common themes in descriptions and reviews, and any patterns in priorities or tags."
+      }
     });
+
+    if (error) {
+      toast(`Error generating summary: ${error.message}`, { type: 'error' });
+      console.error("Error generating summary:", error);
+      return;
+    }
+
+    setSummary(data.generatedText);
 
     if (error) {
       toast(`Error generating summary: ${error.message}`, { type: 'error' });
