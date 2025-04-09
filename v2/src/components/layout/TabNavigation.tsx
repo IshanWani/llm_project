@@ -110,17 +110,16 @@ const TabNavigation = ({
             
             <div className="p-2">
               <Select
-                value={tagFilter}
-                onValueChange={(value) => onTagFilterChange(value as TagType | "all")}
+                value={filters.tagFilter}
+                onValueChange={(value) => handleTagFilterChange(value)}
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Filter by tag" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Tags</SelectItem>
-                  {availableTags.map((tag) => (
-                    <SelectItem key={tag} value={tag}>
-                      {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                  {tagOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
