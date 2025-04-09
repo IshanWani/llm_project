@@ -138,18 +138,25 @@ const TaskList = ({
 
   return (
     <div>
-      <div className="flex gap-4 mb-4 items-center">
-        <Button onClick={generateSummary}>Generate Tasks Summary</Button>
+      <div className="glass-panel rounded-lg p-4 mb-6">
+        <div className="flex flex-col gap-4">
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-semibold">Task Summary</h3>
+            <Button onClick={generateSummary} variant="outline" size="sm">
+              Refresh Summary
+            </Button>
+          </div>
+          <div className="h-[200px] overflow-y-auto rounded-md bg-muted/50 p-4">
+            {summary ? (
+              <pre className="whitespace-pre-wrap text-sm">{summary}</pre>
+            ) : (
+              <p className="text-muted-foreground text-center">
+                Click 'Refresh Summary' to generate a summary of your tasks based on current filters
+              </p>
+            )}
+          </div>
+        </div>
       </div>
-
-      <Dialog open={showSummary} onOpenChange={setShowSummary}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Tasks Summary</DialogTitle>
-          </DialogHeader>
-          <pre className="whitespace-pre-wrap">{summary}</pre>
-        </DialogContent>
-      </Dialog>
 
       <div
         className={cn(
