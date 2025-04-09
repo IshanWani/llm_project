@@ -80,31 +80,28 @@ const TaskList = ({
   const [summary, setSummary] = useState("");
 
   const generateSummary = async () => {
-    const tagTasks = tasks.filter(task => 
-      selectedTag === "all" ? true : task.tag === selectedTag
-    );
-
-    if (tagTasks.length === 0) {
-      toast("No tasks found for this tag.");
+    if (tasks.length === 0) {
+      toast("No tasks found to summarize.");
       return;
     }
     
-    const taskDetails = tagTasks.map(task => ({
+    const taskDetails = tasks.map(task => ({
       title: task.title,
       description: task.description || '',
       review: task.review || '',
       priority: task.priority,
       tag: task.tag,
-      completed: task.completed
+      completed: task.completed,
+      scheduledDate: task.scheduledDate
     }));
 
     const { data, error } = await supabase.functions.invoke('gemini-task-assistant', {
       body: {
         messages: [{
           role: 'user',
-          content: `Please analyze and summarize these tasks: ${JSON.stringify(taskDetails)}`
+          content: `Please provide a comprehensive analysis of these tasks: ${JSON.stringify(taskDetails)}`
         }],
-        systemPrompt: "You are a task analyzer. Generate a concise summary of the tasks, including their completion status, common themes in descriptions and reviews, and any patterns in priorities or tags."
+        systemPrompt: "You are a task analyzer. Generate a detailed summary including: 1) Total tasks and completion status 2) Distribution across different tags 3) Priority patterns 4) Common themes in descriptions and reviews 5) Upcoming deadlines and scheduled tasks"
       }
     });
 
@@ -115,9 +112,8 @@ const TaskList = ({
     }
 
     setSummary(data.generatedText);
-
-    if (error) {
-      toast(`Error generating summary: ${error.message}`, { type: 'error' });
+    setShowSummary(true);
+    toast("Summary generated successfully!");
       console.error("Error generating summary:", error);
       return;
     }
@@ -131,18 +127,7 @@ const TaskList = ({
   return (
     <div>
       <div className="flex gap-4 mb-4 items-center">
-        <Select value={selectedTag} onValueChange={setSelectedTag}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select tag for summary" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Tags</SelectItem>
-            {Array.from(new Set(tasks.map(t => t.tag))).map(tag => (
-              <SelectItem key={tag} value={tag || 'other'}>{tag || 'other'}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Button onClick={generateSummary}>Generate Summary</Button>
+        <Button onClick={generateSummary}>Generate Tasks Summary</Button>
       </div>
 
       <Dialog open={showSummary} onOpenChange={setShowSummary}>
