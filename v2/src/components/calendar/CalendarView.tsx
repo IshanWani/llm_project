@@ -61,8 +61,8 @@ export const CalendarView = () => {
                       {task.description && <p className="truncate">{task.description}</p>}
                       {task.review && <p className="truncate">Review: {task.review}</p>}
                       {task.timeRequired > 0 && <p>Time Required: {task.timeRequired}h</p>}
-                      {task.scheduleFrom && <p>From: {new Date(task.scheduleFrom).toLocaleTimeString()}</p>}
-                      {task.scheduleTo && <p>To: {new Date(task.scheduleTo).toLocaleTimeString()}</p>}
+                      {task.scheduleFrom && <p>From: {new Date(task.scheduleFrom).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>}
+                      {task.scheduleTo && <p>To: {new Date(task.scheduleTo).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>}
                       <p className="font-medium">Priority: {task.priority}</p>
                       {task.tag && <p>Tag: {task.tag}</p>}
                     </div>

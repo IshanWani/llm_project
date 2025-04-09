@@ -128,12 +128,7 @@ const TaskCard = ({ task, onToggleCompletion }: TaskCardProps) => {
                 </div>
               )}
 
-              {task.review && (
-                <div className="text-sm text-muted-foreground mt-1">
-                  <span className="font-medium">Review:</span>
-                  <span className="ml-1">{task.review}</span>
-                </div>
-              )}
+              
               {task.links && (
                 <div className="text-sm mt-1">
                   <span className="font-medium">Resources:</span>

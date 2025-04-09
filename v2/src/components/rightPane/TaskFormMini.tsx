@@ -84,6 +84,30 @@ const TaskFormMini = () => {
     setTaskId(null);
   };
 
+  useEffect(() => {
+    const handleEditTask = (event: CustomEvent) => {
+      const task = event.detail;
+      setTaskId(task.id);
+      setEditMode(true);
+      setFormData({
+        title: task.title || "",
+        description: task.description || "",
+        review: task.review || "",
+        priority: task.priority || "medium",
+        status: task.status || false,
+        tag: task.tag || "",
+        links: task.links || "",
+        timeRequired: task.timeRequired || "",
+        scheduledDate: task.scheduledDate || "",
+        scheduleFrom: task.scheduleFrom || "",
+        scheduleTo: task.scheduleTo || ""
+      });
+    };
+
+    window.addEventListener('edit-task', handleEditTask as EventListener);
+    return () => window.removeEventListener('edit-task', handleEditTask as EventListener);
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
