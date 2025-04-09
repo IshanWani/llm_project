@@ -12,6 +12,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { toast } from 'sonner';
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const TaskFormMini = () => {
   const { addTask, updateTask, availableTags } = useTaskContext();
@@ -245,14 +247,36 @@ const TaskFormMini = () => {
 
           <div>
             <Label className="text-xs" htmlFor="scheduledDate">Scheduled Date</Label>
-            <Input
-              id="scheduledDate"
-              name="scheduledDate"
-              type="date"
-              value={formData.scheduledDate}
-              onChange={handleInputChange}
-              className="h-7 text-xs"
-            />
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-full h-7 text-xs justify-start text-left font-normal",
+                    !formData.scheduledDate && "text-muted-foreground"
+                  )}
+                >
+                  {formData.scheduledDate ? (
+                    format(new Date(formData.scheduledDate), "PPP")
+                  ) : (
+                    <span>Pick a date</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={formData.scheduledDate ? new Date(formData.scheduledDate) : undefined}
+                  onSelect={(date) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      scheduledDate: date ? format(date, "yyyy-MM-dd") : ""
+                    }))
+                  }
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
           </div>
 
           <div className="space-y-2">
