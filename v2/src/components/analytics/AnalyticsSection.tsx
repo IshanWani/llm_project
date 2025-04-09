@@ -1,96 +1,140 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useTaskContext, TagType } from "@/context/TaskContext";
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, CartesianGrid, Legend } from "recharts";
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { MultiSelect } from "@/components/ui/multi-select";
+import { supabase } from "@/integrations/supabase/client";
 
 interface AnalyticsSectionProps {
   className?: string;
 }
 
 const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
-  const { tasks } = useTaskContext();
+  const { tasks, availableTags } = useTaskContext();
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [summary, setSummary] = useState<string>("");
+  const [isGenerating, setIsGenerating] = useState(false);
   
-  // Calculate tag distribution
   const getTagDistribution = () => {
     const distribution: Record<string, number> = {};
-    
     tasks.forEach((task) => {
-      const tagName = task.tag || "other"; // Use "other" as fallback if tag is null
-      if (distribution[tagName]) {
-        distribution[tagName]++;
-      } else {
-        distribution[tagName] = 1;
-      }
+      const tagName = task.tag || "other";
+      distribution[tagName] = (distribution[tagName] || 0) + 1;
     });
-    
     return Object.entries(distribution).map(([name, value]) => ({ name, value }));
   };
   
-  // Calculate completion rate
   const getCompletionRate = () => {
     const completedTasks = tasks.filter((task) => task.completed).length;
     const totalTasks = tasks.length;
-    
     return [
       { name: "Completed", value: completedTasks },
       { name: "Pending", value: totalTasks - completedTasks },
     ];
   };
   
-  // Get priority distribution
   const getPriorityDistribution = () => {
     const distribution: Record<string, number> = { low: 0, medium: 0, high: 0 };
-    
     tasks.forEach((task) => {
       distribution[task.priority]++;
     });
-    
     return Object.entries(distribution).map(([name, value]) => ({ 
       name: name.charAt(0).toUpperCase() + name.slice(1),
       value 
     }));
   };
-  
-  // Mock time allocation data (to be replaced with real data in a full implementation)
-  const timeAllocationData = [
-    { day: "Mon", hours: 2.5 },
-    { day: "Tue", hours: 3.2 },
-    { day: "Wed", hours: 1.8 },
-    { day: "Thu", hours: 4.0 },
-    { day: "Fri", hours: 2.0 },
-    { day: "Sat", hours: 1.0 },
-    { day: "Sun", hours: 0.5 },
-  ];
-  
-  // Mock trend data (to be replaced with real data in a full implementation)
-  const trendData = [
-    { week: "Week 1", tasks: 12, completed: 8 },
-    { week: "Week 2", tasks: 15, completed: 10 },
-    { week: "Week 3", tasks: 18, completed: 14 },
-    { week: "Week 4", tasks: 14, completed: 12 },
-  ];
-  
-  // Colors for charts
-  const COLORS = ["#007AFF", "#34C759", "#5856D6", "#FF9500", "#FF2D55", "#AF52DE", "#FF3B30", "#5AC8FA"];
-  
-  const tagDistribution = getTagDistribution();
-  const completionRate = getCompletionRate();
-  const priorityDistribution = getPriorityDistribution();
+
+  const generateTaskSummary = async () => {
+    if (!selectedTags.length) {
+      setSummary("Please select at least one tag");
+      return;
+    }
+
+    setIsGenerating(true);
+    const filteredTasks = tasks.filter(task => 
+      selectedTags.includes(task.tag || 'other') &&
+      new Date(task.createdAt).toDateString() === selectedDate?.toDateString()
+    );
+
+    const taskDetails = filteredTasks.map(task => ({
+      title: task.title,
+      status: task.completed ? 'completed' : 'pending',
+      review: task.review || 'No review available',
+    }));
+
+    try {
+      const { data, error } = await supabase.functions.invoke('gemini-task-assistant', {
+        body: {
+          messages: [{
+            role: 'user',
+            content: `Please provide a summary of these tasks: ${JSON.stringify(taskDetails)}`
+          }],
+          systemPrompt: "You are a task analyzer. Provide a concise summary of the tasks, highlighting completion status and key points from reviews when available."
+        }
+      });
+
+      if (error) throw error;
+      setSummary(data.generatedText);
+    } catch (error) {
+      setSummary("Error generating summary");
+      console.error(error);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const COLORS = ["#007AFF", "#34C759", "#5856D6", "#FF9500", "#FF2D55"];
 
   return (
     <div className={cn("space-y-8 p-6", className)}>
       <h2 className="text-2xl font-bold">Analytics Dashboard</h2>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Task Completion Rate */}
+      <div className="grid grid-cols-2 gap-8">
+        {/* Left side - Task Summary */}
+        <div className="space-y-4">
+          <div className="glass-card rounded-xl p-4">
+            <h3 className="text-lg font-medium mb-4">Task Summary Generator</h3>
+            <div className="space-y-4">
+              <MultiSelect
+                options={availableTags.map(tag => ({ value: tag, label: tag }))}
+                value={selectedTags}
+                onChange={setSelectedTags}
+                placeholder="Select tags..."
+              />
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                className="rounded-md border"
+              />
+              <Button 
+                onClick={generateTaskSummary}
+                disabled={isGenerating}
+                className="w-full"
+              >
+                {isGenerating ? "Generating..." : "Generate Summary"}
+              </Button>
+              {summary && (
+                <div className="mt-4 p-4 bg-muted rounded-lg">
+                  <p className="whitespace-pre-wrap">{summary}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Right side - Completion Rate */}
         <div className="glass-card rounded-xl p-4">
           <h3 className="text-lg font-medium mb-4">Task Completion Rate</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={completionRate}
+                  data={getCompletionRate()}
                   cx="50%"
                   cy="50%"
                   innerRadius={60}
@@ -100,7 +144,7 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
                   dataKey="value"
                   label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                 >
-                  {completionRate.map((entry, index) => (
+                  {getCompletionRate().map((_, index) => (
                     <Cell key={`cell-${index}`} fill={index === 0 ? "#34C759" : "#FF3B30"} />
                   ))}
                 </Pie>
@@ -109,7 +153,10 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
             </ResponsiveContainer>
           </div>
         </div>
-        
+      </div>
+
+      {/* Bottom row */}
+      <div className="grid grid-cols-2 gap-8">
         {/* Tag Distribution */}
         <div className="glass-card rounded-xl p-4">
           <h3 className="text-lg font-medium mb-4">Tasks by Tag</h3>
@@ -117,7 +164,7 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={tagDistribution}
+                  data={getTagDistribution()}
                   cx="50%"
                   cy="50%"
                   outerRadius={80}
@@ -125,7 +172,7 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
                   dataKey="value"
                   label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                 >
-                  {tagDistribution.map((entry, index) => (
+                  {getTagDistribution().map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
@@ -134,25 +181,23 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
             </ResponsiveContainer>
           </div>
         </div>
-        
+
         {/* Priority Distribution */}
         <div className="glass-card rounded-xl p-4">
           <h3 className="text-lg font-medium mb-4">Priority Distribution</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={priorityDistribution} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" />
+              <BarChart data={getPriorityDistribution()} layout="vertical">
                 <XAxis type="number" />
                 <YAxis dataKey="name" type="category" />
                 <Tooltip />
                 <Bar dataKey="value" fill="#5856D6">
-                  {priorityDistribution.map((entry, index) => {
+                  {getPriorityDistribution().map((entry, index) => {
                     const colors = {
                       Low: "#34C759",
                       Medium: "#FF9500",
                       High: "#FF3B30"
                     };
-                    // @ts-ignore - Type issues with dynamic property access
                     return <Cell key={`cell-${index}`} fill={colors[entry.name]} />;
                   })}
                 </Bar>
