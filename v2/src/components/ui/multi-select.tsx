@@ -6,6 +6,7 @@ import { Command, CommandInput, CommandEmpty, CommandGroup, CommandItem } from "
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Option {
   value: string;
@@ -28,68 +29,73 @@ export function MultiSelect({ options = [], value = [], onChange, placeholder }:
   );
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full justify-between"
-        >
-          <div className="flex gap-1 flex-wrap">
-            {selectedLabels.length > 0 ? (
-              selectedLabels.map(label => (
-                <Badge
-                  key={label}
-                  variant="secondary"
-                  className="mr-1"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onChange(value.filter(v => options.find(opt => opt.value === v)?.label !== label));
-                  }}
-                >
-                  {label}
-                  <X className="ml-1 h-3 w-3" />
-                </Badge>
-              ))
-            ) : (
-              <span className="text-muted-foreground">{placeholder}</span>
-            )}
-          </div>
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
-        <Command className="w-full" shouldFilter={false}>
-          <CommandInput 
-            placeholder="Search..." 
-            value={inputValue} 
-            onValueChange={setInputValue}
-          />
-          <CommandEmpty>No option found.</CommandEmpty>
-          <CommandGroup className="max-h-[200px] overflow-y-auto">
-            {options.map(option => (
-              <CommandItem
-                key={option.value}
-                onSelect={() => {
-                  onChange(
-                    value.includes(option.value)
-                      ? value.filter(v => v !== option.value)
-                      : [...value, option.value]
-                  );
-                }}
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value.includes(option.value) ? "opacity-100" : "opacity-0"
-                  )}
-                />
-                {option.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
+    <div className="flex flex-col gap-2">
+      {selectedLabels.length > 0 && (
+        <div className="flex flex-wrap gap-1 p-1 border rounded-md bg-background">
+          {selectedLabels.map(label => (
+            <Badge
+              key={label}
+              variant="secondary"
+              className="mr-1"
+              onClick={() => {
+                onChange(value.filter(v => options.find(opt => opt.value === v)?.label !== label));
+              }}
+            >
+              {label}
+              <X className="ml-1 h-3 w-3 cursor-pointer" />
+            </Badge>
+          ))}
+        </div>
+      )}
+      
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full justify-between"
+          >
+            <span className="text-muted-foreground">
+              {selectedLabels.length === 0 ? placeholder : `${selectedLabels.length} selected`}
+            </span>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-full p-0">
+          <Command className="w-full" shouldFilter={false}>
+            <CommandInput 
+              placeholder="Search..." 
+              value={inputValue} 
+              onValueChange={setInputValue}
+            />
+            <CommandEmpty>No option found.</CommandEmpty>
+            <ScrollArea className="h-[200px]">
+              <CommandGroup>
+                {options.map(option => (
+                  <CommandItem
+                    key={option.value}
+                    onSelect={() => {
+                      onChange(
+                        value.includes(option.value)
+                          ? value.filter(v => v !== option.value)
+                          : [...value, option.value]
+                      );
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value.includes(option.value) ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {option.label}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </ScrollArea>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    </div>
   );
 }
