@@ -8,10 +8,10 @@ interface TagSelectorProps {
   onTagsChange: (tags: string[]) => void;
 }
 
-export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
-  const { availableTags } = useTaskContext();
+export function TagSelector({ selectedTags = [], onTagsChange }: TagSelectorProps) {
+  const { availableTags = [] } = useTaskContext();
   
-  const tagOptions = (availableTags || []).map(tag => ({
+  const tagOptions = availableTags.map(tag => ({
     value: tag,
     label: tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase()
   }));
@@ -19,7 +19,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
   return (
     <MultiSelect
       options={tagOptions}
-      value={selectedTags || []}
+      value={selectedTags}
       onChange={onTagsChange}
       placeholder="Select tags..."
     />
