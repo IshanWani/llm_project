@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useTaskContext } from '@/context/TaskContext';
 import { Calendar } from '@/components/ui/calendar';
@@ -6,6 +7,7 @@ import { useRightPaneContext } from '@/context/RightPaneContext';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Edit, Trash2 } from "lucide-react";
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export const CalendarView = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -21,6 +23,22 @@ export const CalendarView = () => {
       taskDate.getFullYear() === date.getFullYear()
     );
   });
+
+  const taskSummary = {
+    total: tasksForSelectedDate.length,
+    completed: tasksForSelectedDate.filter(t => t.completed).length,
+    pending: tasksForSelectedDate.filter(t => !t.completed).length,
+    byPriority: {
+      high: tasksForSelectedDate.filter(t => t.priority === 'high').length,
+      medium: tasksForSelectedDate.filter(t => t.priority === 'medium').length,
+      low: tasksForSelectedDate.filter(t => t.priority === 'low').length
+    },
+    byTag: tasksForSelectedDate.reduce((acc: Record<string, number>, task) => {
+      const tag = task.tag || 'other';
+      acc[tag] = (acc[tag] || 0) + 1;
+      return acc;
+    }, {})
+  };
 
   const handleEdit = (task: any) => {
     const event = new CustomEvent('edit-task', { 
@@ -71,23 +89,24 @@ export const CalendarView = () => {
           />
         </div>
         <div className={cn(
-          "flex-1 transition-all duration-300",
+          "flex-1 transition-all duration-300 flex gap-4",
           isRightPaneOpen ? "mr-[400px]" : ""
         )}>
-          <h3 className="text-lg font-semibold mb-4">
-            Tasks for {date?.toLocaleDateString()}
-          </h3>
-          <div className="space-y-2">
-            {tasksForSelectedDate.map(task => (
-              <Card key={task.id} className="p-2">
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => toggleTaskCompletion(task.id)}
-                    className="h-4 w-4 rounded border-gray-300 cursor-pointer"
-                  />
-                  <div className="flex-1 min-w-0">
+          <div className="flex-1">
+            <h3 className="text-lg font-semibold mb-4">
+              Tasks for {date?.toLocaleDateString()}
+            </h3>
+            <div className="space-y-2">
+              {tasksForSelectedDate.map(task => (
+                <Card key={task.id} className="p-2">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={task.completed}
+                      onChange={() => toggleTaskCompletion(task.id)}
+                      className="h-4 w-4 rounded border-gray-300 cursor-pointer"
+                    />
+                    <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-start">
                         <h4 className="font-medium flex-1 mr-2 break-words max-w-[40ch] text-sm" title={task.title}>{task.title}</h4>
                         <div className="flex gap-2 flex-shrink-0">
@@ -139,14 +158,46 @@ export const CalendarView = () => {
                           </div>
                         )}
                       </div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+              {tasksForSelectedDate.length === 0 && (
+                <p className="text-muted-foreground">No tasks scheduled for this date</p>
+              )}
+            </div>
+          </div>
+          <Card className="w-[300px] h-[calc(100vh-8rem)]">
+            <ScrollArea className="h-full p-4">
+              <h3 className="text-lg font-semibold mb-4">Summary</h3>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-medium mb-2">Task Count</h4>
+                  <div className="space-y-1 text-sm">
+                    <p>Total: {taskSummary.total}</p>
+                    <p>Completed: {taskSummary.completed}</p>
+                    <p>Pending: {taskSummary.pending}</p>
                   </div>
                 </div>
-              </Card>
-            ))}
-            {tasksForSelectedDate.length === 0 && (
-              <p className="text-muted-foreground">No tasks scheduled for this date</p>
-            )}
-          </div>
+                <div>
+                  <h4 className="font-medium mb-2">By Priority</h4>
+                  <div className="space-y-1 text-sm">
+                    <p>High: {taskSummary.byPriority.high}</p>
+                    <p>Medium: {taskSummary.byPriority.medium}</p>
+                    <p>Low: {taskSummary.byPriority.low}</p>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-medium mb-2">By Tag</h4>
+                  <div className="space-y-1 text-sm">
+                    {Object.entries(taskSummary.byTag).map(([tag, count]) => (
+                      <p key={tag}>{tag}: {count}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </ScrollArea>
+          </Card>
         </div>
       </div>
     </div>
