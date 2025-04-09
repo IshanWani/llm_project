@@ -112,18 +112,27 @@ const TaskFormMini = () => {
     e.preventDefault();
     try {
       if (editMode && taskId) {
-        await updateTask(taskId, {
+        const updateData: any = {
           title: formData.title,
           description: formData.description,
           priority: formData.priority,
-          tag: formData.tag,
+          tag: formData.tag || "other",
           links: formData.links,
           review: formData.review,
           timeRequired: formData.timeRequired ? parseFloat(formData.timeRequired) : undefined,
-          scheduledDate: formData.scheduledDate,
-          scheduleFrom: formData.scheduleFrom,
-          scheduleTo: formData.scheduleTo
-        });
+        };
+        
+        if (formData.scheduledDate?.trim()) {
+          updateData.scheduledDate = formData.scheduledDate;
+        }
+        if (formData.scheduleFrom?.trim()) {
+          updateData.scheduleFrom = formData.scheduleFrom;
+        }
+        if (formData.scheduleTo?.trim()) {
+          updateData.scheduleTo = formData.scheduleTo;
+        }
+        
+        await updateTask(taskId, updateData);
         toast.success("Task updated successfully");
       } else {
         await addTask({
