@@ -99,14 +99,18 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
           <div className="glass-card rounded-xl p-4">
             <h3 className="text-lg font-medium mb-4">Task Summary Generator</h3>
             <div className="space-y-4">
-              <Select value={selectedTags[0]} onValueChange={(value) => setSelectedTags([value])}>
+              <Select 
+                value={selectedTags[0] || ""} 
+                onValueChange={(value) => setSelectedTags([value])}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select tag for analysis" />
                 </SelectTrigger>
                 <SelectContent className="max-h-[200px] overflow-y-auto">
+                  <SelectItem value="all">All Tags</SelectItem>
                   {availableTags.map((tag) => (
                     <SelectItem key={tag} value={tag}>
-                      {tag}
+                      {tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase()}
                     </SelectItem>
                   ))}
                 </SelectContent>
