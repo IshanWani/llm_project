@@ -1,0 +1,61 @@
+[plugin:vite:react-swc] × Return statement is not allowed here
+     ╭─[/home/runner/workspace/v2/src/components/tasks/TaskList.tsx:127:1]
+ 124 │     
+ 125 │       };
+ 126 │     
+ 127 │ ╭─▶   return (
+ 128 │ │       <div>
+ 129 │ │         <div className="flex gap-4 mb-4 items-center">
+ 130 │ │           <Button onClick={generateSummary}>Generate Tasks Summary</Button>
+ 131 │ │         </div>
+ 132 │ │   
+ 133 │ │         <Dialog open={showSummary} onOpenChange={setShowSummary}>
+ 134 │ │           <DialogContent>
+ 135 │ │             <DialogHeader>
+ 136 │ │               <DialogTitle>Task Summary for {selectedTag}</DialogTitle>
+ 137 │ │             </DialogHeader>
+ 138 │ │             <pre className="whitespace-pre-wrap">{summary}</pre>
+ 139 │ │           </DialogContent>
+ 140 │ │         </Dialog>
+ 141 │ │   
+ 142 │ │         <div
+ 143 │ │           className={cn(
+ 144 │ │             "space-y-4 transition-all duration-300",
+ 145 │ │             rightPaneOpen ? "pr-[380px] md:pr-[380px]" : "pr-0",
+ 146 │ │             className
+ 147 │ │           )}
+ 148 │ │         >
+ 149 │ │           {tasks.length === 0 ? (
+ 150 │ │             <div className="text-center py-10">
+ 151 │ │               <p className="text-muted-foreground">
+ 152 │ │                 {completed
+ 153 │ │                   ? "No completed tasks found with the selected filters."
+ 154 │ │                   : "No pending tasks found with the selected filters."}
+ 155 │ │               </p>
+ 156 │ │             </div>
+ 157 │ │           ) : (
+ 158 │ │             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-in fade-in">
+ 159 │ │               {safeRenderTasks()}
+ 160 │ │             </div>
+ 161 │ │           )}
+ 162 │ │         </div>
+ 163 │ │       </div>
+ 164 │ ╰─▶   );
+ 165 │     };
+ 166 │     
+ 167 │     export default TaskList;
+     ╰────
+  × Expression expected
+     ╭─[/home/runner/workspace/v2/src/components/tasks/TaskList.tsx:165:1]
+ 162 │       </div>
+ 163 │     </div>
+ 164 │   );
+ 165 │ };
+     · ─
+ 166 │ 
+ 167 │ export default TaskList;
+     ╰────
+
+
+Caused by:
+    Syntax Error
