@@ -1,0 +1,67 @@
+The above error occurred in the <ForwardRef> component:
+
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/cmdk.js?v=60f7606d:1634:11
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/components/ui/command.tsx:15:51
+    at div
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-M5IBR7KM.js?v=60f7606d:41:13
+    at Provider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-G7U33CGA.js?v=60f7606d:1902:15)
+    at div
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-G7U33CGA.js?v=60f7606d:2021:7
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-DSLBH2Y5.js?v=60f7606d:52:11
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-DSLBH2Y5.js?v=60f7606d:33:11
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-M5IBR7KM.js?v=60f7606d:41:13
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-BNTEB3GW.js?v=60f7606d:71:7
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-DSLBH2Y5.js?v=60f7606d:52:11
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-DSLBH2Y5.js?v=60f7606d:33:11
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-M5IBR7KM.js?v=60f7606d:41:13
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-BNTEB3GW.js?v=60f7606d:298:5
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/@radix-ui_react-popover.js?v=60f7606d:237:7
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/@radix-ui_react-popover.js?v=60f7606d:194:59
+    at Presence (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-BPDPLM5R.js?v=60f7606d:24:11)
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/@radix-ui_react-popover.js?v=60f7606d:144:64
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-DSLBH2Y5.js?v=60f7606d:52:11
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-DSLBH2Y5.js?v=60f7606d:33:11
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-M5IBR7KM.js?v=60f7606d:41:13
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-BNTEB3GW.js?v=60f7606d:501:22
+    at Presence (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-BPDPLM5R.js?v=60f7606d:24:11)
+    at Provider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-BEZBD377.js?v=60f7606d:48:15)
+    at PopoverPortal (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/@radix-ui_react-popover.js?v=60f7606d:136:11)
+    at _c (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/components/ui/popover.tsx:15:63)
+    at Provider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-BEZBD377.js?v=60f7606d:48:15)
+    at Provider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-G7U33CGA.js?v=60f7606d:1902:15)
+    at Popper (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-G7U33CGA.js?v=60f7606d:1996:11)
+    at Popover (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/@radix-ui_react-popover.js?v=60f7606d:59:5)
+    at MultiSelect (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/components/ui/multi-select.tsx:18:31)
+    at div
+    at div
+    at div
+    at div
+    at div
+    at AnalyticsSection (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/components/analytics/AnalyticsSection.tsx:19:29)
+    at div
+    at div
+    at div
+    at div
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-M5IBR7KM.js?v=60f7606d:41:13
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/@radix-ui_react-scroll-area.js?v=60f7606d:112:13
+    at div
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-M5IBR7KM.js?v=60f7606d:41:13
+    at Provider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-BEZBD377.js?v=60f7606d:48:15)
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/@radix-ui_react-scroll-area.js?v=60f7606d:50:7
+    at _c (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/components/ui/scroll-area.tsx:13:59)
+    at main
+    at div
+    at div
+    at Index (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/pages/Index.tsx:22:39)
+    at PrivateRoute (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/App.tsx:21:25)
+    at RenderedRoute (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=60f7606d:4069:5)
+    at Routes (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=60f7606d:4508:5)
+    at Router (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=60f7606d:4451:15)
+    at BrowserRouter (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=60f7606d:5196:5)
+    at TaskProvider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/context/TaskContext.tsx:17:32)
+    at RightPaneProvider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/context/RightPaneContext.tsx:13:37)
+    at ThemeProvider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/context/ThemeContext.tsx:13:33)
+    at App (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/App.tsx:78:49)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
