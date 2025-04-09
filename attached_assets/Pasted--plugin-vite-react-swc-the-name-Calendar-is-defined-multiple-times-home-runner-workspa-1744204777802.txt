@@ -1,0 +1,83 @@
+[plugin:vite:react-swc] × the name `Calendar` is defined multiple times
+    ╭─[/home/runner/workspace/v2/src/components/rightPane/TaskFormMini.tsx:10:1]
+  7 │ import { PlusCircle, Save } from 'lucide-react';
+  8 │ import { TagType, PriorityType } from '@/types';
+  9 │ import { ScrollArea } from '@/components/ui/scroll-area';
+ 10 │ import { Calendar } from "@/components/ui/calendar";
+    ·          ────┬───
+    ·              ╰── previous definition of `Calendar` here
+ 11 │ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+ 12 │ import { format } from "date-fns";
+ 13 │ import { cn } from "@/lib/utils";
+ 14 │ import { toast } from 'sonner';
+ 15 │ import { Calendar } from "@/components/ui/calendar";
+    ·          ────┬───
+    ·              ╰── `Calendar` redefined here
+ 16 │ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+ 17 │ 
+ 18 │ const TaskFormMini = () => {
+    ╰────
+  × the name `Popover` is defined multiple times
+    ╭─[/home/runner/workspace/v2/src/components/rightPane/TaskFormMini.tsx:11:1]
+  8 │ import { TagType, PriorityType } from '@/types';
+  9 │ import { ScrollArea } from '@/components/ui/scroll-area';
+ 10 │ import { Calendar } from "@/components/ui/calendar";
+ 11 │ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+    ·          ───┬───
+    ·             ╰── previous definition of `Popover` here
+ 12 │ import { format } from "date-fns";
+ 13 │ import { cn } from "@/lib/utils";
+ 14 │ import { toast } from 'sonner';
+ 15 │ import { Calendar } from "@/components/ui/calendar";
+ 16 │ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+    ·          ───┬───
+    ·             ╰── `Popover` redefined here
+ 17 │ 
+ 18 │ const TaskFormMini = () => {
+ 19 │   const { addTask, updateTask, availableTags } = useTaskContext();
+    ╰────
+  × the name `PopoverContent` is defined multiple times
+    ╭─[/home/runner/workspace/v2/src/components/rightPane/TaskFormMini.tsx:11:1]
+  8 │ import { TagType, PriorityType } from '@/types';
+  9 │ import { ScrollArea } from '@/components/ui/scroll-area';
+ 10 │ import { Calendar } from "@/components/ui/calendar";
+ 11 │ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+    ·                   ───────┬──────
+    ·                          ╰── previous definition of `PopoverContent` here
+ 12 │ import { format } from "date-fns";
+ 13 │ import { cn } from "@/lib/utils";
+ 14 │ import { toast } from 'sonner';
+ 15 │ import { Calendar } from "@/components/ui/calendar";
+ 16 │ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+    ·                   ───────┬──────
+    ·                          ╰── `PopoverContent` redefined here
+ 17 │ 
+ 18 │ const TaskFormMini = () => {
+ 19 │   const { addTask, updateTask, availableTags } = useTaskContext();
+    ╰────
+  × the name `PopoverTrigger` is defined multiple times
+    ╭─[/home/runner/workspace/v2/src/components/rightPane/TaskFormMini.tsx:11:1]
+  8 │ import { TagType, PriorityType } from '@/types';
+  9 │ import { ScrollArea } from '@/components/ui/scroll-area';
+ 10 │ import { Calendar } from "@/components/ui/calendar";
+ 11 │ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+    ·                                   ───────┬──────
+    ·                                          ╰── previous definition of `PopoverTrigger` here
+ 12 │ import { format } from "date-fns";
+ 13 │ import { cn } from "@/lib/utils";
+ 14 │ import { toast } from 'sonner';
+ 15 │ import { Calendar } from "@/components/ui/calendar";
+ 16 │ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+    ·                                   ───────┬──────
+    ·                                          ╰── `PopoverTrigger` redefined here
+ 17 │ 
+ 18 │ const TaskFormMini = () => {
+ 19 │   const { addTask, updateTask, availableTags } = useTaskContext();
+    ╰────
+/home/runner/workspace/v2/src/components/rightPane/TaskFormMini.tsx:10:1
+150|    };
+151|  
+152|    return (
+   |          ^
+153|      <ScrollArea className="h-full w-[300px] rounded-md border p-2">
+154|        <div className="px-2">
