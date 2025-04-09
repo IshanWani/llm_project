@@ -13,16 +13,16 @@ interface Option {
 }
 
 interface MultiSelectProps {
-  options: Option[];
-  value: string[];
+  options?: Option[];
+  value?: string[];
   onChange: (value: string[]) => void;
   placeholder?: string;
 }
 
-export function MultiSelect({ options, value, onChange, placeholder }: MultiSelectProps) {
+export function MultiSelect({ options = [], value = [], onChange, placeholder }: MultiSelectProps) {
   const [open, setOpen] = React.useState(false);
 
-  const selectedLabels = value.map(
+  const selectedLabels = value?.map(
     v => options.find(opt => opt.value === v)?.label || v
   );
 
@@ -58,10 +58,10 @@ export function MultiSelect({ options, value, onChange, placeholder }: MultiSele
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
-        <Command>
+        <Command className="w-full">
           <CommandInput placeholder="Search..." />
           <CommandEmpty>No option found.</CommandEmpty>
-          <CommandGroup>
+          <CommandGroup className="max-h-[200px] overflow-y-auto">
             {options.map(option => (
               <CommandItem
                 key={option.value}
