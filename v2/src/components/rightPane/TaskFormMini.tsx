@@ -120,35 +120,24 @@ const TaskFormMini = () => {
           links: formData.links,
           review: formData.review,
           timeRequired: formData.timeRequired ? parseFloat(formData.timeRequired) : undefined,
+          scheduledDate: formData.scheduledDate || null,
+          scheduleFrom: formData.scheduleFrom || null,
+          scheduleTo: formData.scheduleTo || null,
         };
-        
-        if (formData.scheduledDate?.trim()) {
-          updateData.scheduledDate = formData.scheduledDate;
-        }
-        if (formData.scheduleFrom?.trim()) {
-          updateData.scheduleFrom = formData.scheduleFrom;
-        }
-        if (formData.scheduleTo?.trim()) {
-          updateData.scheduleTo = formData.scheduleTo;
-        }
-        
         await updateTask(taskId, updateData);
         toast.success("Task updated successfully");
       } else {
-        await addTask({
-          title: formData.title,
-          description: formData.description,
-          priority: formData.priority,
+        const taskData = {
+          ...formData,
+          scheduledDate: formData.scheduledDate || null,
+          scheduleFrom: formData.scheduleFrom || null,
+          scheduleTo: formData.scheduleTo || null,
+          timeRequired: formData.timeRequired ? Number(formData.timeRequired) : null,
           tag: formData.tag || "other",
-          links: formData.links,
-          review: formData.review,
-          timeRequired: formData.timeRequired ? parseFloat(formData.timeRequired) : undefined,
-          scheduledDate: formData.scheduledDate,
-          scheduleFrom: formData.scheduleFrom,
-          scheduleTo: formData.scheduleTo,
           status: false,
           completed: false
-        });
+        };
+        await addTask(taskData);
         toast.success("Task added successfully");
       }
       resetForm();
