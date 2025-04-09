@@ -1,9 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import { useTaskContext } from "@/context/TaskContext";
 import TaskCard from "@/components/tasks/TaskCard";
 import { cn } from "@/lib/utils";
 import { PriorityType, TagType } from "@/context/TaskContext";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
@@ -32,6 +32,8 @@ const TaskList = ({
 
   const tasks = getFilteredTasks(completed, dateFilter, priorityFilter, tagFilter);
   const [rightPaneOpen, setRightPaneOpen] = useState(true);
+  const [showSummary, setShowSummary] = useState(false);
+  const [summary, setSummary] = useState("");
 
   useEffect(() => {
     const handleRightPaneToggle = (event: CustomEvent<{ isOpen: boolean }>) => {
@@ -75,10 +77,6 @@ const TaskList = ({
     }
   };
 
-  const [selectedTag, setSelectedTag] = useState<string>("all");
-  const [showSummary, setShowSummary] = useState(false);
-  const [summary, setSummary] = useState("");
-
   const generateSummary = async () => {
     if (tasks.length === 0) {
       toast("No tasks found to summarize.");
@@ -114,14 +112,6 @@ const TaskList = ({
     setSummary(data.generatedText);
     setShowSummary(true);
     toast("Summary generated successfully!");
-      console.error("Error generating summary:", error);
-      return;
-    }
-
-    setSummary(data.summary);
-    setShowSummary(true);
-    toast("Summary generated!");
-
   };
 
   return (
@@ -133,7 +123,7 @@ const TaskList = ({
       <Dialog open={showSummary} onOpenChange={setShowSummary}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Task Summary for {selectedTag}</DialogTitle>
+            <DialogTitle>Tasks Summary</DialogTitle>
           </DialogHeader>
           <pre className="whitespace-pre-wrap">{summary}</pre>
         </DialogContent>
