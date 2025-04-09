@@ -1,0 +1,28 @@
+at TabNavigation (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/components/layout/TabNavigation.tsx:17:26)
+    at div
+    at div
+    at div
+    at div
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-M5IBR7KM.js?v=60f7606d:41:13
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/@radix-ui_react-scroll-area.js?v=60f7606d:112:13
+    at div
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-M5IBR7KM.js?v=60f7606d:41:13
+    at Provider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/chunk-BEZBD377.js?v=60f7606d:48:15)
+    at https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/@radix-ui_react-scroll-area.js?v=60f7606d:50:7
+    at _c (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/components/ui/scroll-area.tsx:13:59)
+    at main
+    at div
+    at div
+    at Index (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/pages/Index.tsx:22:39)
+    at PrivateRoute (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/App.tsx:21:25)
+    at RenderedRoute (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=60f7606d:4069:5)
+    at Routes (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=60f7606d:4508:5)
+    at Router (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=60f7606d:4451:15)
+    at BrowserRouter (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=60f7606d:5196:5)
+    at TaskProvider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/context/TaskContext.tsx:17:32)
+    at RightPaneProvider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/context/RightPaneContext.tsx:13:37)
+    at ThemeProvider (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/context/ThemeContext.tsx:13:33)
+    at App (https://4ab4462e-bf44-4254-b7d2-0f449fce79a0-00-p0o3px25bzqw.sisko.replit.dev/src/App.tsx:78:49)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
