@@ -5,7 +5,7 @@ import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveCo
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { MultiSelect } from "@/components/ui/multi-select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 
 interface AnalyticsSectionProps {
@@ -99,12 +99,18 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
           <div className="glass-card rounded-xl p-4">
             <h3 className="text-lg font-medium mb-4">Task Summary Generator</h3>
             <div className="space-y-4">
-              <MultiSelect
-                options={availableTags.map(tag => ({ value: tag, label: tag }))}
-                value={selectedTags}
-                onChange={setSelectedTags}
-                placeholder="Select tags..."
-              />
+              <Select value={selectedTags[0]} onValueChange={(value) => setSelectedTags([value])}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select tag for analysis" />
+                </SelectTrigger>
+                <SelectContent className="max-h-[200px] overflow-y-auto">
+                  {availableTags.map((tag) => (
+                    <SelectItem key={tag} value={tag}>
+                      {tag}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <Calendar
                 mode="single"
                 selected={selectedDate}
