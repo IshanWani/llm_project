@@ -23,7 +23,8 @@ export function MultiSelect({ options = [], value = [], onChange, placeholder }:
   const [open, setOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
 
-  const filteredOptions = options.filter(option => 
+  const safeOptions = options || [];
+  const filteredOptions = safeOptions.filter(option => 
     option.label.toLowerCase().includes(inputValue.toLowerCase())
   );
 
