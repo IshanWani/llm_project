@@ -107,8 +107,25 @@ const TabNavigation = ({
           <DropdownMenuContent className="w-56" align="end">
             <DropdownMenuLabel>Filter Tasks</DropdownMenuLabel>
             <DropdownMenuSeparator />
-
-            {/* TODO:  Implement Summary Generation Button */}
+            
+            <div className="p-2">
+              <Select
+                value={tagFilter}
+                onValueChange={(value) => onTagFilterChange(value as TagType | "all")}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Filter by tag" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Tags</SelectItem>
+                  {availableTags.map((tag) => (
+                    <SelectItem key={tag} value={tag}>
+                      {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
             <DropdownMenuGroup>
               <DropdownMenuLabel className="text-xs font-normal text-muted-foreground pt-2">

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useTaskContext, TagType } from "@/context/TaskContext";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
@@ -18,7 +17,7 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [summary, setSummary] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
-  
+
   const getTagDistribution = () => {
     const distribution: Record<string, number> = {};
     tasks.forEach((task) => {
@@ -27,7 +26,7 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
     });
     return Object.entries(distribution).map(([name, value]) => ({ name, value }));
   };
-  
+
   const getCompletionRate = () => {
     const completedTasks = tasks.filter((task) => task.completed).length;
     const totalTasks = tasks.length;
@@ -36,7 +35,7 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
       { name: "Pending", value: totalTasks - completedTasks },
     ];
   };
-  
+
   const getPriorityDistribution = () => {
     const distribution: Record<string, number> = { low: 0, medium: 0, high: 0 };
     tasks.forEach((task) => {
@@ -92,22 +91,22 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
   return (
     <div className={cn("space-y-8 p-6", className)}>
       <h2 className="text-2xl font-bold">Analytics Dashboard</h2>
-      
-      <div className="grid grid-cols-2 gap-8">
-        {/* Left side - Task Summary */}
+
+      <div className="grid grid-cols-3 gap-8"> {/* Changed to 3 columns */}
+        {/* Left side - Task Summary & Tag Selection */}
         <div className="space-y-4">
           <div className="glass-card rounded-xl p-4">
             <h3 className="text-lg font-medium mb-4">Task Summary Generator</h3>
             <div className="space-y-4">
               <Select 
-                value={selectedTags[0] || ""} 
-                onValueChange={(value) => setSelectedTags([value])}
+                value={selectedTags} 
+                onValueChange={setSelectedTags}
+                multiple
               >
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select tag for analysis" />
+                  <SelectValue placeholder="Select tags for analysis" />
                 </SelectTrigger>
                 <SelectContent className="max-h-[200px] overflow-y-auto">
-                  <SelectItem value="all">All Tags</SelectItem>
                   {availableTags.map((tag) => (
                     <SelectItem key={tag} value={tag}>
                       {tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase()}
@@ -128,13 +127,18 @@ const AnalyticsSection = ({ className }: AnalyticsSectionProps) => {
               >
                 {isGenerating ? "Generating..." : "Generate Summary"}
               </Button>
-              {summary && (
-                <div className="mt-4 p-4 bg-muted rounded-lg">
-                  <p className="whitespace-pre-wrap">{summary}</p>
-                </div>
-              )}
             </div>
           </div>
+        </div>
+
+        {/* Summary Display (moved to its own column) */}
+        <div className="glass-card rounded-xl p-4 col-span-2"> {/* Takes up two columns */}
+          <h3 className="text-lg font-medium mb-4">Task Summary</h3>
+          {summary && (
+            <div className="mt-4 p-4 bg-muted rounded-lg whitespace-pre-wrap"> {/* Added whitespace-pre-wrap */}
+              <p>{summary}</p>
+            </div>
+          )}
         </div>
 
         {/* Right side - Completion Rate */}
