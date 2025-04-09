@@ -83,6 +83,25 @@ const TaskList = ({
       return;
     }
     
+    const taskStats = {
+      total: tasks.length,
+      completed: tasks.filter(t => t.completed).length,
+      pending: tasks.filter(t => !t.completed).length,
+      byPriority: {
+        high: tasks.filter(t => t.priority === 'high').length,
+        medium: tasks.filter(t => t.priority === 'medium').length,
+        low: tasks.filter(t => t.priority === 'low').length
+      },
+      byTag: tasks.reduce((acc: Record<string, number>, task) => {
+        const tag = task.tag || 'other';
+        acc[tag] = (acc[tag] || 0) + 1;
+        return acc;
+      }, {}),
+      upcoming: tasks
+        .filter(t => t.scheduledDate && new Date(t.scheduledDate) > new Date())
+        .length
+    };
+
     const taskDetails = tasks.map(task => ({
       title: task.title,
       description: task.description || '',
@@ -90,16 +109,19 @@ const TaskList = ({
       priority: task.priority,
       tag: task.tag,
       completed: task.completed,
-      scheduledDate: task.scheduledDate
+      scheduledDate: task.scheduledDate,
+      timeRequired: task.timeRequired,
+      scheduleFrom: task.scheduleFrom,
+      scheduleTo: task.scheduleTo
     }));
 
     const { data, error } = await supabase.functions.invoke('gemini-task-assistant', {
       body: {
         messages: [{
           role: 'user',
-          content: `Please provide a comprehensive analysis of these tasks: ${JSON.stringify(taskDetails)}`
+          content: `Analyze these tasks and provide a comprehensive summary. Task statistics: ${JSON.stringify(taskStats)}. Full task details: ${JSON.stringify(taskDetails)}`
         }],
-        systemPrompt: "You are a task analyzer. Generate a detailed summary including: 1) Total tasks and completion status 2) Distribution across different tags 3) Priority patterns 4) Common themes in descriptions and reviews 5) Upcoming deadlines and scheduled tasks"
+        systemPrompt: "You are a task analyzer. Generate a detailed summary including: 1) Task completion overview 2) Distribution by tags and priorities 3) Time allocation patterns 4) Key themes in task descriptions 5) Upcoming scheduled tasks and deadlines. Be concise but thorough."
       }
     });
 
