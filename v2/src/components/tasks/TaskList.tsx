@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useTaskContext } from "@/context/TaskContext";
 import TaskCard from "@/components/tasks/TaskCard";
@@ -7,6 +6,8 @@ import { PriorityType, TagType } from "@/context/TaskContext";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 interface TaskListProps {
   completed: boolean;
@@ -28,7 +29,7 @@ const TaskList = ({
     toggleTaskCompletion,
     tasks: allTasks,
   } = useTaskContext();
-  
+
   const tasks = getFilteredTasks(completed, dateFilter, priorityFilter, tagFilter);
   const [rightPaneOpen, setRightPaneOpen] = useState(true);
 
@@ -78,21 +79,31 @@ const TaskList = ({
   const [showSummary, setShowSummary] = useState(false);
   const [summary, setSummary] = useState("");
 
-  const generateSummary = () => {
+  const generateSummary = async () => {
     const tagTasks = tasks.filter(task => 
       selectedTag === "all" ? true : task.tag === selectedTag
     );
+
+    if (tagTasks.length === 0) {
+      toast("No tasks found for this tag.");
+      return;
+    }
     
-    const summaryText = `
-      Total Tasks: ${tagTasks.length}
-      Completed: ${tagTasks.filter(t => t.completed).length}
-      High Priority: ${tagTasks.filter(t => t.priority === 'high').length}
-      Medium Priority: ${tagTasks.filter(t => t.priority === 'medium').length}
-      Low Priority: ${tagTasks.filter(t => t.priority === 'low').length}
-    `;
-    
-    setSummary(summaryText);
+    const taskDescriptions = tagTasks.map(task => task.description);
+    const { data, error } = await supabase.functions.invoke('summarize-tasks', {
+      body: JSON.stringify({ taskDescriptions })
+    });
+
+    if (error) {
+      toast(`Error generating summary: ${error.message}`, { type: 'error' });
+      console.error("Error generating summary:", error);
+      return;
+    }
+
+    setSummary(data.summary);
     setShowSummary(true);
+    toast("Summary generated!");
+
   };
 
   return (
