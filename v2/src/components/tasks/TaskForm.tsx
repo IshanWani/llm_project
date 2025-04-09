@@ -70,9 +70,15 @@ const TaskForm = ({ className }: TaskFormProps) => {
       return;
     }
 
-    addTask({
+    const taskData = {
       ...formData,
-    });
+      scheduleFrom: formData.scheduleFrom || null,
+      scheduleTo: formData.scheduleTo || null,
+      scheduledDate: formData.scheduledDate || null,
+      timeRequired: formData.timeRequired ? Number(formData.timeRequired) : null,
+    };
+    
+    addTask(taskData);
 
     toast.success("Task added successfully!");
 
