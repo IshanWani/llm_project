@@ -89,7 +89,7 @@ export const CalendarView = () => {
                   />
                   <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-start">
-                        <h4 className="font-medium truncate flex-1 mr-2" title={task.title}>{task.title}</h4>
+                        <h4 className="font-medium flex-1 mr-2 break-words max-w-[40ch] text-sm" title={task.title}>{task.title}</h4>
                         <div className="flex gap-2 flex-shrink-0">
                           <Button
                             variant="ghost"
@@ -111,7 +111,7 @@ export const CalendarView = () => {
                       </div>
                       <div className="text-[10px] text-muted-foreground space-y-1">
                         {task.description && (
-                          <p className="truncate" title={task.description}>
+                          <p className="break-words max-w-[35ch] text-xs" title={task.description}>
                             {task.description}
                           </p>
                         )}
