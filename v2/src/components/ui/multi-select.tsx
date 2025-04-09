@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,24 +14,28 @@ interface Option {
 }
 
 interface MultiSelectProps {
-  options?: Option[];
-  value?: string[];
+  options: Option[];
+  value: string[];
   onChange: (value: string[]) => void;
   placeholder?: string;
 }
 
-export function MultiSelect({ options = [], value = [], onChange, placeholder }: MultiSelectProps) {
+export function MultiSelect({ 
+  options = [], 
+  value = [], 
+  onChange, 
+  placeholder = "Select..." 
+}: MultiSelectProps) {
   const [open, setOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
 
-  const safeOptions = options ?? [];
-  const safeValue = value ?? [];
-  const filteredOptions = safeOptions.filter(option => 
+  const filteredOptions = options.filter(option => 
     option.label.toLowerCase().includes(inputValue.toLowerCase())
   );
 
-  const selectedLabels = safeValue.map(
-    v => safeOptions.find(opt => opt.value === v)?.label || v
+  const selectedValues = value || [];
+  const selectedLabels = selectedValues.map(v => 
+    options.find(opt => opt.value === v)?.label || v
   );
 
   return (
@@ -43,7 +48,10 @@ export function MultiSelect({ options = [], value = [], onChange, placeholder }:
               variant="secondary"
               className="mr-1"
               onClick={() => {
-                onChange(value.filter(v => options.find(opt => opt.value === v)?.label !== label));
+                const optionValue = options.find(opt => opt.label === label)?.value;
+                if (optionValue) {
+                  onChange(selectedValues.filter(v => v !== optionValue));
+                }
               }}
             >
               {label}
@@ -67,7 +75,7 @@ export function MultiSelect({ options = [], value = [], onChange, placeholder }:
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">
-          <Command className="w-full" >
+          <Command>
             <CommandInput 
               placeholder="Search..." 
               value={inputValue} 
@@ -81,16 +89,16 @@ export function MultiSelect({ options = [], value = [], onChange, placeholder }:
                     key={option.value}
                     onSelect={() => {
                       onChange(
-                        value.includes(option.value)
-                          ? value.filter(v => v !== option.value)
-                          : [...value, option.value]
+                        selectedValues.includes(option.value)
+                          ? selectedValues.filter(v => v !== option.value)
+                          : [...selectedValues, option.value]
                       );
                     }}
                   >
                     <Check
                       className={cn(
                         "mr-2 h-4 w-4",
-                        value.includes(option.value) ? "opacity-100" : "opacity-0"
+                        selectedValues.includes(option.value) ? "opacity-100" : "opacity-0"
                       )}
                     />
                     {option.label}
