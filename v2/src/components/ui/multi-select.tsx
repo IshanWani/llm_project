@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -51,7 +50,7 @@ export function MultiSelect({ options = [], value = [], onChange, placeholder }:
           ))}
         </div>
       )}
-      
+
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -65,8 +64,8 @@ export function MultiSelect({ options = [], value = [], onChange, placeholder }:
             </span>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0">
-          <Command className="w-full">
+        <PopoverContent className="w-[200px] p-0">
+          <Command className="w-full" >
             <CommandInput 
               placeholder="Search..." 
               value={inputValue} 
