@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useTaskContext } from '@/context/TaskContext';
 import { Calendar } from '@/components/ui/calendar';
@@ -89,49 +88,49 @@ export const CalendarView = () => {
                     className="h-4 w-4 rounded border-gray-300 cursor-pointer"
                   />
                   <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start">
-                      <h4 className="font-medium truncate">{task.title}</h4>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 w-7 p-0"
-                          onClick={() => handleEdit(task)}
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 w-7 p-0 text-red-500 hover:text-red-700 hover:bg-red-100"
-                          onClick={() => handleDelete(task.id)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="text-[10px] text-muted-foreground space-y-1">
-                      {task.description && <p className="truncate">{task.description}</p>}
-                      {task.review && <p className="truncate">Review: {task.review}</p>}
-                      {task.timeRequired > 0 && <p>Time Required: {task.timeRequired}h</p>}
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className={`px-1.5 py-0.5 rounded text-xs ${
-                          task.priority === 'high' ? 'bg-red-100 text-red-800' :
-                          task.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-green-100 text-green-800'
-                        }`}>
-                          {task.priority}
-                        </span>
-                        <span className="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded text-xs">
-                          {task.tag}
-                        </span>
-                      </div>
-                      {(task.scheduleFrom || task.scheduleTo) && (
-                        <div className="text-xs text-muted-foreground mt-1">
-                          Time: {formatTime(task.scheduleFrom)} - {formatTime(task.scheduleTo)}
+                      <div className="flex justify-between items-start">
+                        <h4 className="font-medium break-words line-clamp-2 flex-1 mr-2">{task.title}</h4>
+                        <div className="flex gap-2 flex-shrink-0">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-7 w-7 p-0"
+                            onClick={() => handleEdit(task)}
+                          >
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-7 w-7 p-0 text-red-500 hover:text-red-700 hover:bg-red-100"
+                            onClick={() => handleDelete(task.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
                         </div>
-                      )}
-                    </div>
+                      </div>
+                      <div className="text-[10px] text-muted-foreground space-y-1">
+                        {task.description && <p className="break-words line-clamp-2">{task.description}</p>}
+                        {task.review && <p className="break-words line-clamp-2">Review: {task.review}</p>}
+                        {task.timeRequired > 0 && <p>Time Required: {task.timeRequired}h</p>}
+                        <div className="flex items-center gap-2 mt-1 flex-wrap">
+                          <span className={`px-1.5 py-0.5 rounded text-xs ${
+                            task.priority === 'high' ? 'bg-red-100 text-red-800' :
+                            task.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-green-100 text-green-800'
+                          }`}>
+                            {task.priority}
+                          </span>
+                          <span className="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded text-xs">
+                            {task.tag}
+                          </span>
+                        </div>
+                        {(task.scheduleFrom || task.scheduleTo) && (
+                          <div className="text-xs text-muted-foreground mt-1">
+                            Time: {formatTime(task.scheduleFrom)} - {formatTime(task.scheduleTo)}
+                          </div>
+                        )}
+                      </div>
                   </div>
                 </div>
               </Card>
